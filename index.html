@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slider</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="jquery-1.11.3.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="slider">
+			<ul>
+				<li class="slide1">
+					<div class="innerSlide">
+						<div class="slideItem slideItem1">
+						</div>
+					</div>
+				</li>
+				<li class="slide2">
+					<div class="innerSlide">
+						<div class="slideItem slideItem2">
+						</div>
+					</div>
+				</li>
+				<li class="slide3">
+					<div class="innerSlide">
+						<div class="slideItem slideItem3">
+						</div>
+					</div>
+				</li>
+				<li class="slide4">
+					<div class="innerSlide">
+						<div class="slideItem slideItem4">
+						</div>
+					</div>
+				</li>
+			</ul>
+			<a class="prevButton slideButton" href="javascript:void(0)"></a>
+			<a class="nextButton slideButton" href="javascript:void(0)"></a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var slideWidth = $(".slider").width();
+			var slideHeight = $(".slider").height();
+			var slideNumber = $(".slider ul li").length;
+			var completeWidth = slideWidth * slideNumber;
+			/*$(".nextButton").click(function(){
+				$(".slider ul li.active").toggleClass("active lastSlide");
+				$(".slider ul li.upComing").toggleClass("upComing active");
+				$(".slider ul li.thirdSlide").toggleClass("thirdSlide upComing");
+				$(".slider ul li.lastSlide").toggleClass("lastSlide thirdSlide");
+			});*/
+			
+			$('.nextButton').click(function () {
+				//clearInterval(slidingInterval);
+				forwardSlide();
+			});
+			
+			$('.prevButton').click(function () {
+				//clearInterval(slidingInterval);
+				backwardSlide();
+			});
+			
+			var slidingInterval = setInterval(function(){
+				forwardSlide();
+			}, 6000);
+			
+			function forwardSlide(){
+				$('.slider ul li').each(function(){
+					var classes = ['slide1','slide2','slide3','slide4'];
+					this.className = classes[($.inArray(this.className, classes)+1)%classes.length];
+				});
+			}
+			function backwardSlide(){
+				$('.slider ul li').each(function(){
+					var classes = ['slide1','slide2','slide3','slide4'];
+					this.className = classes[($.inArray(this.className, classes)+3)%classes.length];
+				});
+			}
+			
+		});
+		
+		$(window).resize(function(){
+			var slideWidth = $(".slider").width();
+			var slideNumber = $(".slider ul li").length;
+			var completeWidth = slideWidth * slideNumber;
+			
+			//$(".slider ul").width(completeWidth);
+			//$(".slider ul li").width(slideWidth);
+		});
+	</script>
+</body>
+</html>
